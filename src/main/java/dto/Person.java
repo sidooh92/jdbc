@@ -20,6 +20,17 @@ public class Person {
     @Column
     private int age;
 
+    @Override
+    public String toString() {
+        return "Person{" +
+                "idperson=" + idperson +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", age=" + age +
+                ", dogs=" + dogs +
+                '}';
+    }
+
     @OneToMany
     @JoinColumn(name = "person_id")
     private Collection<Dog> dogs = new ArrayList<>();
