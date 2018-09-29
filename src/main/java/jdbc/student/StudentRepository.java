@@ -13,57 +13,84 @@ public class StudentRepository implements AbstractRepsitoryI {
     String DB_PASSWORD = "admin";
 
     Connection connection = null;
+    PreparedStatement preparedStatement = null;
     Statement statement = null;
     ResultSet rs = null;
 
 
     @Override
     public Student get(int id) {
-        return null;
-    }
-
-    @Override
-    public List<Student> getAll() throws SQLException {
-        List<Student> students =  new ArrayList<>();
+        Student student = null;
         try {
-            connection = DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASSWORD);
-            statement = connection.createStatement();
+            getConnection();
+            String selectTableSQL = "SELECT * FROM person WHERE idStudent = ?";
 
-            String selectTableSQL = "SELECT * from person";
+            preparedStatement = connection.prepareStatement(selectTableSQL);
+            preparedStatement.setInt(1,id);
 
-            rs = statement.executeQuery(selectTableSQL);
+
+            rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-
                 int studentId = rs.getInt("idStudent");
                 String name = rs.getString("name");
                 String surname = rs.getString("surname");
-                students.add(new Student(studentId, name, surname ));
-
-
+                student = new Student(studentId, name, surname);
             }
-        } catch (
-                SQLException e)
-
+        } catch (SQLException e)
         {
-
             System.out.println(e.getMessage());
 
         } finally
-
         {
+            closeJdbcConnection(preparedStatement);
+        }
+        return student;
+    }
+
+    private void closeJdbcConnection(Statement preparedStatement){
+        try {
             if (rs != null) {
                 rs.close();
             }
-
-            if (statement != null) {
-                statement.close();
+            if (preparedStatement != null) {
+                preparedStatement.close();
             }
             if (connection != null) {
                 connection.close();
             }
         }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Student> getAll() {
+        List<Student> students =  new ArrayList<>();
+        try {
+            statement = getConnection().createStatement();
+            String selectTableSQL = "SELECT * from student";
+            rs = statement.executeQuery(selectTableSQL);
+            while (rs.next()) {
+                int studentId = rs.getInt("idStudent");
+                String name = rs.getString("name");
+                String surname = rs.getString("surname");
+                students.add(new Student(studentId, name, surname ));
+            }
+        } catch (SQLException e)        {
+            System.out.println(e.getMessage());
+        } finally        {
+            closeJdbcConnection(statement);
+        }
         return students;
+    }
+
+    private Connection getConnection() throws SQLException {
+        if(connection == null)
+        connection = DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASSWORD);
+
+        return connection;
     }
 
     @Override
@@ -80,4 +107,6 @@ public class StudentRepository implements AbstractRepsitoryI {
     public boolean insert(Map map) {
         return false;
     }
+
+
 }

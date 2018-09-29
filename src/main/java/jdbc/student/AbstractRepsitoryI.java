@@ -1,13 +1,12 @@
 package jdbc.student;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 public interface AbstractRepsitoryI<T> {
     T get(int id);
 
-    List<T> getAll() throws SQLException;
+    List<T> getAll();
 
     boolean delete(int id);
 
