@@ -16,25 +16,25 @@ public class Main {
         em.getTransaction().begin();
 
 
-//
-//        Person person = new Person();
-//        person.setAge(919);
-//        person.setName("sidAAA");
-//        person.setSurname("sidsurnameAAA");
-//        person.setIdperson(199);
-//
-//        em.persist(person);
-//
 
-        List<Person> idperson = em.createQuery("from Person p where p.idperson = :idperson").setParameter("idperson", 99).getResultList();
-//
-//
-        for (Person p : idperson ) {
-            for (Dog dog : p.getDogs()) {
-                System.out.println(dog);
-            }
+        Person person = new Person();
+        person.setAge(919);
+        person.setName("sidAAA");
+        person.setSurname("sidsurnameAAA");
+        person.setIdperson(199);
 
-        }
+        em.persist(person);
+//
+//
+//        List<Person> idperson = em.createQuery("from Person p where p.idperson = :idperson").setParameter("idperson", 99).getResultList();
+////
+////
+//        for (Person p : idperson ) {
+//            for (Dog dog : p.getDogs()) {
+//                System.out.println(dog);
+//            }
+//
+//        }
 
 
 //        Person person1 = (Person) session.createQuery("FROM Person WHERE idperson = 99").getSingleResult();

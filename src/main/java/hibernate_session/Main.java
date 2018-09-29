@@ -1,5 +1,6 @@
 package hibernate_session;
 
+import dto.Person;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -13,12 +14,13 @@ public class Main {
 
         session.beginTransaction();
 
-//        Person person = new Person();
-//        person.setAge(99);
-//        person.setName("sid");
-//        person.setSurname("sidsurname");
-//        person.setIdperson(99);
-        //session.save(person);
+        Person person = new Person();
+        person.setAge(99);
+        person.setName("sid");
+        person.setSurname("sidsurname");
+        person.setIdperson(99);
+        session.save(person);
+
         //System.out.println("Employee ID=" + person.getIdperson());
 
 //        List<Person> idperson = session.createQuery("from Person p where p.idperson = :idperson").setParameter("idperson", 99).getResultList();
