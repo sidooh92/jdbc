@@ -13,6 +13,9 @@ public class Student {
     private String name;
     private String surname;
 
+    public Student() {
+    }
+
     public Student(int idStudent, String name, String surname) {
         this.idStudent = idStudent;
         this.name = name;
