@@ -1,17 +1,15 @@
 package hibernate;
 
-import dto.Dog;
-import dto.Person;
+import hibernate.student.HibernateUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
-        EntityManager em = getEntityManager();
+         EntityManager em = HibernateUtils.getEntityManager();
         em.getTransaction().begin();
 
 ////
@@ -52,11 +50,9 @@ public class Main {
 
         em.getTransaction().commit();
         em.close();
+        HibernateUtils.closeEmFactory();
 
 }
 
-    private static EntityManager getEntityManager() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("my-persistence-unit");
-        return emf.createEntityManager();
-    }
+
 }
