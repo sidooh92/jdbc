@@ -22,6 +22,15 @@ public class Student {
         this.surname = surname;
     }
 
+    @Override
+    public String toString() {
+        return "Student{" +
+                "idStudent=" + idStudent +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                '}';
+    }
+
     public int getIdStudent() {
         return idStudent;
     }

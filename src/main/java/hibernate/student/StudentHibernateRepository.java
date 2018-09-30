@@ -1,5 +1,7 @@
 package hibernate.student;
 
+import javax.persistence.EntityManager;
+import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 public class StudentHibernateRepository implements AbstractRepsitoryI<Student> {
@@ -7,8 +9,18 @@ public class StudentHibernateRepository implements AbstractRepsitoryI<Student> {
 
     @Override
     public Student get(int id) {
+
+        EntityManager em = HibernateUtils.getEntityManager();
+        em.getTransaction().begin();
+        Student student = (Student) em.createQuery
+                ("from Student p where p.idStudent = :idStudent")
+                .setParameter("idStudent", id)
+                .getSingleResult();
+
+        em.getTransaction().commit();
+        em.close();
         //query z parametrem
-        return null;
+        return student;
     }
 
     @Override

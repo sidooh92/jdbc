@@ -5,11 +5,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class HibernateUtils {
-    private static EntityManagerFactory emf = null;
+    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("my-persistence-unit");
 
-    public HibernateUtils(EntityManagerFactory emf) {
-        this.emf = Persistence.createEntityManagerFactory("my-persistence-unit");
-    }
+
 
     public static EntityManager getEntityManager() {
         return emf.createEntityManager();

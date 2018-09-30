@@ -1,16 +1,18 @@
 package hibernate;
 
 import hibernate.student.HibernateUtils;
+import hibernate.student.Student;
+import hibernate.student.StudentHibernateRepository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 public class Main {
 
     public static void main(String[] args) {
-         EntityManager em = HibernateUtils.getEntityManager();
-        em.getTransaction().begin();
+        StudentHibernateRepository studentHibernateRepository = new StudentHibernateRepository();
+        Student student = studentHibernateRepository.get(1);
+
+        System.out.println(student);
 
 ////
 ////
@@ -48,8 +50,6 @@ public class Main {
 //        System.out.println(person2);
 //        session.getTransaction().commit();
 
-        em.getTransaction().commit();
-        em.close();
         HibernateUtils.closeEmFactory();
 
 }
