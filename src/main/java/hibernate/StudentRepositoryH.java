@@ -1,7 +1,7 @@
 package hibernate;
 
-import jdbc.student.AbstractRepsitoryI;
-import jdbc.student.Student;
+import hibernate.student.AbstractRepsitoryI;
+import hibernate.student.Student;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -37,17 +37,18 @@ public class StudentRepositoryH implements AbstractRepsitoryI<Student> {
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean delete(Student object) {
         return false;
     }
 
     @Override
-    public boolean insert(Map<String, String> map) {
+    public boolean insert(Student object) {
         return false;
     }
 
     @Override
-    public boolean update(int id, Map<String, String> map) {
+    public boolean update(Student object) {
         return false;
     }
+
 }
