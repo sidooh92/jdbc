@@ -8,7 +8,7 @@ public interface AbstractRepsitoryI<T> {
 
     List<T> getAll();
 
-    boolean delete(int id);
+    boolean delete(T object);
 
     boolean insert(T object);
 
