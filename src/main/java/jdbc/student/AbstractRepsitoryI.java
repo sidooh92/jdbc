@@ -10,7 +10,7 @@ public interface AbstractRepsitoryI<T> {
 
     boolean delete(int id);
 
-    boolean insert(Map<String, String> map);
+    boolean insert(T object);
 
-    boolean update(int id, Map<String, String> map);
+    boolean update(T object);
 }
