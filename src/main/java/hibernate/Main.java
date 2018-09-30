@@ -9,8 +9,12 @@ import javax.persistence.EntityManager;
 public class Main {
 
     public static void main(String[] args) {
-        StudentHibernateRepository studentHibernateRepository = new StudentHibernateRepository();
-        Student student = studentHibernateRepository.get(1);
+//        StudentHibernateRepository studentHibernateRepository = new StudentHibernateRepository();
+//        Student student = studentHibernateRepository.get(1);
+//
+//        System.out.println(student);
+
+        EntityManager entityManager = HibernateUtils.getEntityManager();
 
         System.out.println(student);
 
@@ -50,6 +54,7 @@ public class Main {
 //        System.out.println(person2);
 //        session.getTransaction().commit();
 
+        HibernateUtils.closeEm();
         HibernateUtils.closeEmFactory();
 
 }
