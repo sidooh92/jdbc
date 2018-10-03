@@ -1,60 +1,54 @@
 package hibernate;
 
-import hibernate.student.HibernateUtils;
-import hibernate.student.Student;
-import hibernate.student.StudentHibernateRepository;
+import hibernate.student.*;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
-//        StudentHibernateRepository studentHibernateRepository = new StudentHibernateRepository();
-//        Student student = studentHibernateRepository.get(1);
-//
-//        System.out.println(student);
+        StudentHibernateRepository studentRepo = new StudentHibernateRepository();
+        MarkHibernateRepository markRepo = new MarkHibernateRepository();
+      //dodanie nowego studenta o id 1
+        Student student = new Student();
+        student.setSurname("RobertNazwisko");
+        student.setName("Robert");
+        studentRepo.insert(student);
 
-        EntityManager entityManager = HibernateUtils.getEntityManager();
+        //dodanie nowego studenta o id 2
+        Student student2 = new Student();
+        student2.setSurname("Tom");
+        student2.setName("Jerry");
+        studentRepo.insert(student2);
 
-        System.out.println(student);
-
-////
-////
-////        Person person = new Person();
-////        person.setAge(919);
-////        person.setName("sidAAA");
-////        person.setSurname("sidsurnameAAA");
-////        person.setIdperson(199);
-////
-////        em.persist(person);
-//////
-//
-//        List<Person> idperson = em.createQuery
-//                ("from Person p where p.idperson = :t")
-//                .setParameter("t", 99)
-//                .getResultList();
-////
-////
-//        for (Person p : idperson ) {
-//            System.out.println(p);
-//            for (Dog dog : p.getDogs()) {
-//                System.out.println(dog);
-//            }
-//
-//        }
-//
-
-//        Person person1 = (Person) session.createQuery
-// ("FROM Person WHERE idperson = 99").getSingleResult();
-//        System.out.println(person1.getName());
+        //dodanie 2 ocen do studenta o id 1
+        markRepo.insert(new Mark(5,student));
+        markRepo.insert(new Mark(5,student));
 
 
-//
-//        String person2 = (String) session.createQuery("SELECT surname FROM Person WHERE idperson = 99").getSingleResult();
-//        System.out.println(person2);
-//        session.getTransaction().commit();
+        markRepo.insert(new Mark(3,student2));
+        markRepo.insert(new Mark(2,student2));
 
-        HibernateUtils.closeEm();
+        //pobranie studenta o o id 1 i wyswietlenie wewnatrz metody get jego toString
+        studentRepo.get(1);
+
+        //usuniecie oceny po id
+        markRepo.delete(1);
+
+        //wyswietlenie studenta  z ocenami po usunieciu jednej oceny
+        studentRepo.get(1);
+
+
+        //pobranie i wyswietlenie wszystkich studentow z ich ocenami
+        studentRepo.getAll();
+
+
+        //pobranie i wyswietlenie wszystkich ocen
+        markRepo.getAll();
+
+
         HibernateUtils.closeEmFactory();
 
 }

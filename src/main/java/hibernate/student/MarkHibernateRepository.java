@@ -1,72 +1,66 @@
 package hibernate.student;
 
 import javax.persistence.EntityManager;
-import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
-public class StudentHibernateRepository implements AbstractRepsitoryI<Student> {
+public class MarkHibernateRepository implements AbstractRepsitoryI<Mark> {
 
 
     @Override
-    public Student get(int id) {
+    public Mark get(int id) {
         EntityManager em = HibernateUtils.getEntityManager();
         em.getTransaction().begin();
-        Student student = (Student) em.createQuery
-                ("from Student p where p.idStudent = :idStudent")
-                .setParameter("idStudent", id)
-                .getSingleResult();
-
-        System.out.println(student);
+        Mark mark = em.find(Mark.class, id);
+        System.out.println(mark);
         em.getTransaction().commit();
         em.close();
-        return student;
+        return mark;
     }
 
     @Override
-    public List<Student> getAll() {
+    public List<Mark> getAll() {
         EntityManager em = HibernateUtils.getEntityManager();
         em.getTransaction().begin();
-        List<Student> studentList = em.createQuery
-                ("from Student")
+        List<Mark> markList = em.createQuery
+                ("from Mark")
                 .getResultList();
-
-        System.out.println(studentList);
+        System.out.println(markList);
         em.getTransaction().commit();
         em.close();
-        return studentList;
+        return  markList;
     }
 
     @Override
     public boolean delete(int id) {
         EntityManager em = HibernateUtils.getEntityManager();
         em.getTransaction().begin();
-        Student student = em.find(Student.class, id);
+        Mark mark = em.find(Mark.class, id);
 
-        em.remove(student);
+        em.remove(mark);
         em.getTransaction().commit();
         em.close();
         return true;
     }
 
     @Override
-    public boolean insert(Student student) {
+    public boolean insert(Mark object) {
         EntityManager em = HibernateUtils.getEntityManager();
         em.getTransaction().begin();
-
-        em.persist(student);
+        object.setStudent(em.find(Student.class, object.getStudent().getIdStudent()));
+        em.persist(object);
         em.getTransaction().commit();
         em.close();
         return true;
     }
 
     @Override
-    public boolean update(Student object) {
+    public boolean update(Mark object) {
         EntityManager em = HibernateUtils.getEntityManager();
         em.getTransaction().begin();
-        Student student = em.find(Student.class, object.getIdStudent());
-        student.setName(object.getName());
-        student.setSurname(object.getSurname());
-        em.merge(student);
+        Mark mark = em.find(Mark.class, object.getIdMark());
+        mark.setMark(object.getMark());
+
+        em.remove(mark);
         em.getTransaction().commit();
         em.close();
         return true;
