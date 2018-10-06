@@ -3,6 +3,7 @@ package hibernate.student;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="STUDENT")
@@ -17,6 +18,16 @@ public class Student {
     @OneToMany(mappedBy = "student")
     private List<Mark> markList;
 
+    public Set<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
+    }
+
+    @ManyToMany(mappedBy = "students")
+    private Set<Subject> subjects;
     public Student() {
     }
 

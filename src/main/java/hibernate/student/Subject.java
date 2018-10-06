@@ -1,8 +1,6 @@
 package hibernate.student;
 
 
-import org.hibernate.annotations.Columns;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -10,14 +8,18 @@ import java.util.Set;
 @Table(name = "SUBJECT")
 public class Subject {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idSubject;
 
     private String subjectName;
 
-    @ManyToMany //todo join columns albo mappedBY
+    @ManyToMany
+    @JoinTable(name = "SUBJECT_STUDENT",
+                joinColumns =
+                        {@JoinColumn(name="subject_id")},
+                inverseJoinColumns =
+                        {@JoinColumn(name="student_id")})
     private Set<Student> students;
 
     public Subject() {
