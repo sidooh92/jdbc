@@ -48,10 +48,12 @@ implements AbstractRepsitoryI<Subject>{
         EntityManager em = HibernateUtils.getEntityManager();
         em.getTransaction().begin();
         Set<Student> actualStudents = new HashSet<>();
-        for (Student student : object.getStudents()) {
-        actualStudents.add(em.find(Student.class, student.getIdStudent()));
+        if(object.getStudents() != null) {
+            for (Student student : object.getStudents()) {
+                actualStudents.add(em.find(Student.class, student.getIdStudent()));
+            }
+            object.setStudents(actualStudents);
         }
-        object.setStudents(actualStudents);
         em.persist(object);
         em.getTransaction().commit();
         em.close();
